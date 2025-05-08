@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NMR Operator Qualification Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+    .quiz-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .question, .intro {
+      display: none;
+      margin-bottom: 15px;
+    }
+    .active {
+      display: block;
+    }
+    .option {
+      margin: 5px 0;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #5c8aff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .result {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    .next-btn {
+      display: none;
+      margin-top: 10px;
+    }
+    .next-btn.active {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div class="intro active" id="intro">
+      <h2>?? NMR Operator Qualification Quiz</h2>
+      <p>This quiz tests how dedicated and qualified you are as an NMR operator.<br>
+      Answer each question and press "Next" to proceed. You need <strong>at least 3 correct</strong> out of 5 to pass.</p>
+      <button onclick="startQuiz()">Start</button>
+    </div>
+
+    <form id="quizForm">
+      <div class="question" id="q1">
+        <strong>Question 1:</strong> What should replace the question marks (?,?)?<br>
+        <label class="option"><input type="radio" name="q1" value="0"> A. N,N</label><br>
+        <label class="option"><input type="radio" name="q1" value="0"> B. 1,2</label><br>
+        <label class="option"><input type="radio" name="q1" value="1"> C. O,O</label><br>
+        <label class="option"><input type="radio" name="q1" value="0"> D. 1,1</label><br>
+        <label class="option"><input type="radio" name="q1" value="0"> E. 2,2</label><br>
+        <button type="button" onclick="checkAnswer(1)">Check Answer</button>
+        <div class="result" id="result1"></div>
+        <button class="next-btn" id="next1" type="button" onclick="goToNext(1)">Next</button>
+      </div>
+
+      <div class="question" id="q2">
+        <strong>Question 2:</strong> What is the correct nucleus to fill in the question mark (?)?<br>
+        <label class="option"><input type="radio" name="q2" value="0"> A. 1H</label><br>
+        <label class="option"><input type="radio" name="q2" value="0"> B. 11B</label><br>
+        <label class="option"><input type="radio" name="q2" value="0"> C. 13C</label><br>
+        <label class="option"><input type="radio" name="q2" value="0"> D. 19F</label><br>
+        <label class="option"><input type="radio" name="q2" value="1"> E. 31P</label><br>
+        <button type="button" onclick="checkAnswer(2)">Check Answer</button>
+        <div class="result" id="result2"></div>
+        <button class="next-btn" id="next2" type="button" onclick="goToNext(2)">Next</button>
+      </div>
+
+      <div class="question" id="q3">
+        <strong>Question 3 – Just for fun ??:</strong> Who is the author of the two dissertations mentioned?<br>
+        <label class="option"><input type="radio" name="q3" value="0"> A. Prof. Dr. Brigitte Voit</label><br>
+        <label class="option"><input type="radio" name="q3" value="0"> B. Dr. Jens Gaitzsch</label><br>
+        <label class="option"><input type="radio" name="q3" value="0"> C. Fabian Mehner</label><br>
+        <label class="option"><input type="radio" name="q3" value="1"> D. Dr. Hartmut Komber</label><br>
+        <label class="option"><input type="radio" name="q3" value="0"> E. Dr. Martin Geisler</label><br>
+        <button type="button" onclick="checkAnswer(3)">Check Answer</button>
+        <div class="result" id="result3"></div>
+        <button class="next-btn" id="next3" type="button" onclick="goToNext(3)">Next</button>
+      </div>
+
+      <div class="question" id="q4">
+        <strong>Question 4:</strong> Where did Dr. Komber complete his postdoctoral research?<br>
+        <label class="option"><input type="radio" name="q4" value="0"> A. ETH Zurich</label><br>
+        <label class="option"><input type="radio" name="q4" value="0"> B. TU Delft</label><br>
+        <label class="option"><input type="radio" name="q4" value="1"> C. TU Munich</label><br>
+        <label class="option"><input type="radio" name="q4" value="0"> D. KTH Stockholm</label><br>
+        <label class="option"><input type="radio" name="q4" value="0"> E. Politecnico di Milano</label><br>
+        <button type="button" onclick="checkAnswer(4)">Check Answer</button>
+        <div class="result" id="result4"></div>
+        <button class="next-btn" id="next4" type="button" onclick="goToNext(4)">Next</button>
+      </div>
+
+      <div class="question" id="q5">
+        <strong>Question 5:</strong> In which year did Dr. Komber begin working at IPF?<br>
+        <label class="option"><input type="radio" name="q5" value="0"> A. 1989</label><br>
+        <label class="option"><input type="radio" name="q5" value="1"> B. 1991</label><br>
+        <label class="option"><input type="radio" name="q5" value="0"> C. 1993</label><br>
+        <label class="option"><input type="radio" name="q5" value="0"> D. 1995</label><br>
+        <label class="option"><input type="radio" name="q5" value="0"> E. 1997</label><br>
+        <button type="button" onclick="checkAnswer(5)">Check Answer</button>
+        <div class="result" id="result5"></div>
+        <button class="next-btn" id="next5" type="button" onclick="showFinalResult()">See Result</button>
+      </div>
+    </form>
+
+    <div class="result" id="finalResult"></div>
+  </div>
+
+  <script>
+    let score = 0;
+
+    function startQuiz() {
+      document.getElementById("intro").classList.remove("active");
+      document.getElementById("q1").classList.add("active");
+    }
+
+    function checkAnswer(num) {
+      const selected = document.querySelector(`input[name="q${num}"]:checked`);
+      const result = document.getElementById(`result${num}`);
+      const nextBtn = document.getElementById(`next${num}`);
+
+      if (!selected) {
+        result.textContent = "Please select an answer before continuing.";
+        result.className = "result incorrect";
+        return;
+      }
+
+      const isCorrect = selected.value === "1";
+      if (isCorrect) {
+        score++;
+        result.textContent = "Correct! ?";
+        result.className = "result correct";
+      } else {
+        result.textContent = "Incorrect ?";
+        result.className = "result incorrect";
+      }
+
+      nextBtn.classList.add("active");
+    }
+
+    function goToNext(current) {
+      document.getElementById(`q${current}`).classList.remove("active");
+      document.getElementById(`q${current + 1}`).classList.add("active");
+    }
+
+    function showFinalResult() {
+      document.getElementById("q5").classList.remove("active");
+      const final = document.getElementById("finalResult");
+      if (score >= 3) {
+        final.textContent = `?? You passed with a score of ${score}/5.`;
+        final.className = "result correct";
+      } else {
+        final.textContent = `?? You failed with a score of ${score}/5.`;
+        final.className = "result incorrect";
+      }
+    }
+  </script>
+</body>
+</html>
+
